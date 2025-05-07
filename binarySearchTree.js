@@ -212,6 +212,23 @@ class Tree {
     this.#inOrderRec(node.right, callback);
     callback(node);
   }
+
+  height(value) {
+    const node = this.find(value);
+    if (node === null) {
+      return null;
+    }
+
+    return this.#calculateHeight(node);
+  }
+
+  #calculateHeight(node) {
+    if (node === null) {
+      return -1;
+    }
+
+    return 1 + Math.max(this.#calculateHeight(node.left), this.#calculateHeight(node.right));
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
