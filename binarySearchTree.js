@@ -123,6 +123,22 @@ class Tree {
     }
     return true;
   }
+
+  find(value) {
+    let currentNode = this.root;
+
+    while (currentNode !== null) {
+      if (value === currentNode.data) {
+        return currentNode;
+      } else if (value < currentNode.data) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+
+    return null;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
