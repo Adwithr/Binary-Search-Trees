@@ -139,6 +139,28 @@ class Tree {
 
     return null;
   }
+
+  levelOrder(callback) {
+    if (!callback) {
+      throw new Error("Callback function is required for traversal.");
+    }
+
+    let queue = [];
+    if (this.root) {
+      queue.push(this.root);
+    }
+
+    while (queue.length !== 0) {
+      let currentNode = queue.shift();
+      callback(currentNode);
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
