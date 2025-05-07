@@ -229,6 +229,24 @@ class Tree {
 
     return 1 + Math.max(this.#calculateHeight(node.left), this.#calculateHeight(node.right));
   }
+
+  depth(value) {
+    let currentNode = this.root;
+    let depth = 0;
+
+    while (currentNode !== null) {
+      if (value === currentNode.data) {
+        return depth;
+      } else if (value < currentNode.data) {
+        currentNode = currentNode.left;
+        depth++;
+      } else {
+        currentNode = currentNode.right;
+        depth++;
+      }
+    }
+    return null;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
