@@ -192,8 +192,8 @@ class Tree {
       return;
     }
     callback(node);
-    this.#inOrderRec(node.left, callback);
-    this.#inOrderRec(node.right, callback);
+    this.#preOrderRec(node.left, callback);
+    this.#preOrderRec(node.right, callback);
   }
 
   postOrder(callback) {
@@ -208,8 +208,8 @@ class Tree {
     if (node === null) {
       return;
     }
-    this.#inOrderRec(node.left, callback);
-    this.#inOrderRec(node.right, callback);
+    this.#postOrderRec(node.left, callback);
+    this.#postOrderRec(node.right, callback);
     callback(node);
   }
 
@@ -262,5 +262,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const idk = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-prettyPrint(idk.root);
+const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+prettyPrint(tree.root);
