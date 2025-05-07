@@ -49,6 +49,80 @@ class Tree {
       parentNode.right = newNode;
     }
   }
+
+  deleteItem(value) {
+    if (this.root === null) {
+      return false;
+    }
+
+    let currentNode = this.root;
+    let parentNode = null;
+    let isLeftChild = false;
+
+    while (currentNode !== null && currentNode.data !== value) {
+      parentNode = currentNode;
+
+      if (value < currentNode.data) {
+        isLeftChild = true;
+        currentNode = currentNode.left;
+      } else {
+        isLeftChild = false;
+        currentNode = currentNode.right;
+      }
+    }
+
+    if (currentNode === null) {
+      return false;
+    }
+
+    //Case 1
+    if (parentNode.left === null && parentNode.right === null) {
+      if (currentNode === this.root) {
+        this.root = null;
+      } else if (isLeftChild) {
+        parentNode.left = null;
+      } else {
+        parentNode.right = null;
+      }
+    }
+    //Case 2
+    else if (currentNode.right === null) {
+      if (currentNode === this.root) {
+        this.root = currentNode.left;
+      } else if (isLeftChild) {
+        parentNode.left = currentNode.left;
+      } else {
+        parentNode.right = currentNode.left;
+      }
+    } else if (currentNode.left === null) {
+      if (currentNode === this.root) {
+        this.root = currentNode.right;
+      } else if (isLeftChild) {
+        parentNode.left = currentNode.right;
+      } else {
+        parentNode.right = currentNode.right;
+      }
+    }
+    //Case 3
+    else {
+      let successorParent = currentNode;
+      let successor = currentNode.right;
+
+      while (successor.left !== null) {
+        successorParent = successor;
+        successor = successor.left;
+      }
+
+      currentNode.data = successor.data;
+
+      if (successorParent === currentNode) {
+        currentNode.right = successor.right;
+      } else {
+        successorParent.left = successor.right;
+      }
+    }
+    return true;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
