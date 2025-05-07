@@ -161,6 +161,23 @@ class Tree {
       }
     }
   }
+
+  inOrder(callback) {
+    if (!callback) {
+      throw new Error("Callback function is required for traversal.");
+    }
+
+    this.#inOrderRec(this.root, callback);
+  }
+
+  #inOrderRec(node, callback) {
+    if (node === null) {
+      return;
+    }
+    this.#inOrderRec(node.left, callback);
+    callback(node);
+    this.#inOrderRec(node.right, callback);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
