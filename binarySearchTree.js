@@ -195,6 +195,23 @@ class Tree {
     this.#inOrderRec(node.left, callback);
     this.#inOrderRec(node.right, callback);
   }
+
+  postOrder(callback) {
+    if (!callback) {
+      throw new Error("Callback function is required for traversal.");
+    }
+
+    this.#postOrderRec(this.root, callback);
+  }
+
+  #postOrderRec(node, callback) {
+    if (node === null) {
+      return;
+    }
+    this.#inOrderRec(node.left, callback);
+    this.#inOrderRec(node.right, callback);
+    callback(node);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
