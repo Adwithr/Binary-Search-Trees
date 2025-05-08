@@ -247,6 +247,26 @@ class Tree {
     }
     return null;
   }
+
+  isBalanced() {
+    return this.#checkBalance(this.root);
+  }
+
+  #checkBalance(node) {
+    if (node === null) {
+      return true;
+    }
+
+    let leftBalanced = this.#checkBalance(node.left);
+    let rightBalanced = this.#checkBalance(node.right);
+
+    let leftHeight = this.#calculateHeight(node.left);
+    let rightHeight = this.#calculateHeight(node.right);
+
+    let heightDifferece = Math.abs(leftHeight - rightHeight) <= 1;
+
+    return leftBalanced && rightBalanced && heightDifferece;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
