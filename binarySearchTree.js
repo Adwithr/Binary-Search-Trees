@@ -263,9 +263,9 @@ export class Tree {
     let leftHeight = this.#calculateHeight(node.left);
     let rightHeight = this.#calculateHeight(node.right);
 
-    let heightDifferece = Math.abs(leftHeight - rightHeight) <= 1;
+    let heightDifference = Math.abs(leftHeight - rightHeight) <= 1;
 
-    return leftBalanced && rightBalanced && heightDifferece;
+    return leftBalanced && rightBalanced && heightDifference;
   }
 
   rebalance() {
