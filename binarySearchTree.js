@@ -1,6 +1,6 @@
 import { Node } from "./nodes.js";
 
-class Tree {
+export class Tree {
   constructor(arr) {
     const sortedUniqueArray = [...new Set(arr)].sort((a, b) => a - b);
     this.root = this.buildTree(sortedUniqueArray, 0, sortedUniqueArray.length - 1);
@@ -267,9 +267,26 @@ class Tree {
 
     return leftBalanced && rightBalanced && heightDifferece;
   }
+
+  rebalance() {
+    const sortedData = [];
+    this.#inOrderRecModified(this.root, sortedData);
+    const newNode = this.buildTree(sortedData, 0, sortedData.length - 1);
+    this.root = newNode;
+  }
+
+  #inOrderRecModified(node, dataArray) {
+    if (node === null) {
+      return;
+    }
+
+    this.#inOrderRecModified(node.left, dataArray);
+    dataArray.push(node.data);
+    this.#inOrderRecModified(node.right, dataArray);
+  }
 }
 
-const prettyPrint = (node, prefix = "", isLeft = true) => {
+export function prettyPrint(node, prefix = "", isLeft = true) {
   if (node === null) {
     return;
   }
@@ -280,7 +297,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.left !== null) {
     prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
-};
-
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-prettyPrint(tree.root);
+}
